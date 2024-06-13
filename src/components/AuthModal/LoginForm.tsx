@@ -33,8 +33,6 @@ const LoginForm = () => {
       try {
         const res = await dispatch(handleLogin(data)).unwrap();
         console.log("res data login", res);
-
-        tokenMethod.set();
       } catch (error) {
         console.log("error", error);
       }

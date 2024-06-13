@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authService } from "../../services/authService";
 import tokenMethod from "../../utils/token";
 import { message } from "antd";
-import Cookies from "js-cookie";
+
 const initialState = {
   showModal: "",
   profile: null,
@@ -55,8 +55,8 @@ export const authSlice = createSlice({
       })
       // handleGetProfile
       .addCase(handleGetProfile.fulfilled, (state, action) => {
-        state.loading.getProfile = false;
         state.profile = action.payload;
+        state.loading.getProfile = false;
       })
       .addCase(handleGetProfile.pending, (state) => {
         state.loading.getProfile = true;
@@ -73,18 +73,19 @@ export const { handleLogout, handleShowModal, handleCloseModal } = actions;
 export default authReducer;
 
 export const handleRegister = createAsyncThunk(
-  "auth/register",
+  "auth/handleRegister",
   async (payload, thunkApi) => {
+    console.log("payload", payload);
     try {
       const registerRes = await authService.register(payload);
       if (registerRes?.data?.data?.id) {
         message.success("Đăng ký thành công!");
-        // thunkApi.dispatch(
-        //   handleLogin({
-        //     email: payload.email,
-        //     password: payload.password,
-        //   })
-        // );
+        thunkApi.dispatch(
+          handleLogin({
+            email: payload?.email,
+            password: payload?.password,
+          })
+        );
         return true;
       } else {
         throw false;
@@ -113,7 +114,6 @@ export const handleLogin = createAsyncThunk(
         accessToken,
         refreshToken,
       });
-      tokenMethod.get();
       thunkApi.dispatch(handleGetProfile());
       message.success("Đăng nhập thành công!");
       return true;

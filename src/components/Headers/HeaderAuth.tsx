@@ -1,10 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import PATHS from "../../constants/paths";
-// import { useAuthContext } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import { MODAL_TYPES } from "../../constants/general";
-// import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import tokenMethod from "../../utils/token";
 import {
   handleLogout,
@@ -14,6 +12,7 @@ import {
 const HeaderAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { profile } = useSelector((state) => state.auth);
   // const { dropdown, handleShowDropdown, handleCloseDropdown } =
   //   useAuthContext();
 
@@ -42,7 +41,11 @@ const HeaderAuth = () => {
     navigate(PATHS.HOME);
   };
 
+  const { firstName, lastName, profileImage, email } = profile || {};
+  const name = firstName + " " + lastName;
   console.log("tokenMethod.get()", tokenMethod.get());
+  console.log("profile", profile);
+
   return (
     <>
       {!tokenMethod.get() ? (
@@ -95,14 +98,19 @@ const HeaderAuth = () => {
               >
                 <div className="userlogged__dropdown-info">
                   <div className="user__img">
-                    <img src="img/avatar_nghia.jpg" alt="Avatar teacher" />
+                    <img
+                      src={profileImage || "img/avatar_nghia.jpg"}
+                      alt="Avatar teacher"
+                    />
                   </div>
-                  <a href="student-profile.html" className="user__info">
+                  <Link to={PATHS.PROFILE.INDEX} className="user__info">
                     <p className="title --t4">
-                      <strong>Trần Nghĩa</strong>
+                      <strong>{name || ""}</strong>
                     </p>
-                    <span className="email">Thông tin tài khoản</span>
-                  </a>
+                    <span className="email">
+                      {email || "Thông tin tài khoản"}
+                    </span>
+                  </Link>
                 </div>
                 <div className="userlogged__dropdown-list">
                   <Link to={PATHS.PROFILE.MY_COURSE}>Khóa học của tôi</Link>

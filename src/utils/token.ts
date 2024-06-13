@@ -19,7 +19,7 @@ export const cookieToken = {
         : null
     ),
 
-  set: (token: string) => {
+  set: (token: any) => {
     if (token) {
       Cookies.set(STORAGE.token, JSON.stringify(token));
     } else {
@@ -35,7 +35,7 @@ const tokenMethod = {
     // return localToken.get();
     return cookieToken.get();
   },
-  set: (token: string) => {
+  set: (token: any) => {
     // return localToken.set(token);
     return cookieToken.set(token);
   },
