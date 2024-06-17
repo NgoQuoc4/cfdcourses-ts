@@ -5,6 +5,7 @@ import { MODAL_TYPES } from "../../constants/general";
 import { useDispatch, useSelector } from "react-redux";
 import tokenMethod from "../../utils/token";
 import {
+  handleGetProfile,
   handleLogout,
   handleShowModal,
 } from "../../store/reducers/authReducer";
@@ -18,33 +19,34 @@ const HeaderAuth = () => {
 
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   useEffect(() => {
+    dispatch(handleGetProfile() as any);
     document.addEventListener("click", () => setShowDropdown(false));
     return () => {
       document.removeEventListener("click", () => setShowDropdown(false));
     };
   }, []);
 
-  const _onShowDropdown = (e) => {
-    e.stopPropagation();
+  const _onShowDropdown = (e: any) => {
+    e?.stopPropagation();
     setShowDropdown(true);
   };
 
-  const _onShowModal = (e: any, type: string) => {
+  const _onShowModal = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    type: string
+  ) => {
     e?.preventDefault();
     e?.stopPropagation();
     dispatch(handleShowModal(type));
   };
 
-  const _onLogout = (e) => {
-    e?.preventDefault();
+  const _onLogout = () => {
     dispatch(handleLogout());
     navigate(PATHS.HOME);
   };
 
   const { firstName, lastName, profileImage, email } = profile || {};
   const name = firstName + " " + lastName;
-  console.log("tokenMethod.get()", tokenMethod.get());
-  console.log("profile", profile);
 
   return (
     <>
@@ -77,7 +79,10 @@ const HeaderAuth = () => {
                 onClick={_onShowDropdown}
               >
                 <div className="userlogged__avatar-img user__img">
-                  <img src="img/avatar_nghia.jpg" alt="Avatar teacher" />
+                  <img
+                    src={profileImage || "/img/avatar_nghia.jpg"}
+                    alt="Avatar teacher"
+                  />
                 </div>
                 <i className="userlogged__avatar-icon">
                   <svg
@@ -99,7 +104,7 @@ const HeaderAuth = () => {
                 <div className="userlogged__dropdown-info">
                   <div className="user__img">
                     <img
-                      src={profileImage || "img/avatar_nghia.jpg"}
+                      src={profileImage || "/img/avatar_nghia.jpg"}
                       alt="Avatar teacher"
                     />
                   </div>

@@ -12,7 +12,6 @@ const CoursesSection = ({
   id: string;
   loading: boolean;
 }) => {
-  console.log("id", id);
   const coursesLoading = useDebounce(loading, 300);
   return (
     <section className="courses">

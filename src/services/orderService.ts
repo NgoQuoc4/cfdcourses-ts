@@ -8,6 +8,6 @@ export const orderService = {
     return axiosInstance.get(`/orders/courses/me`);
   },
   orderCourse(payload = {}) {
-    return axiosInstance.get(`/orders`, payload);
+    return axiosInstance.post(`/orders`, payload);
   },
 };

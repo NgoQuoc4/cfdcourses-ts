@@ -7,7 +7,7 @@ const PATHS = {
   COURSE: {
     INDEX: COURSE_PATH,
     DETAIL: COURSE_PATH + "/:courseSlug", // /course/khoa-hoc-lap-trinh-frontend-newbie-28
-    ORDER: "/course-order/:orderSlug", // /course-order/khoa-hoc-lap-trinh-frontend-newbie-28
+    ORDER: "/course-order/:courseSlug", // /course-order/khoa-hoc-lap-trinh-frontend-newbie-28
   },
   BLOG: {
     INDEX: BLOG_PATH,

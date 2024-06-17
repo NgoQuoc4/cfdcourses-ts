@@ -13,8 +13,6 @@ import FaqSection from "../HomePage/FaqSection";
 
 const CourseDetailPage = () => {
   const { courseSlug } = useParams();
-
-  // console.log("courseSlug", courseSlug);
   // get all courses
   const {
     data: dataCourses,
@@ -36,7 +34,6 @@ const CourseDetailPage = () => {
     if (courseSlug) execution(courseSlug) || "";
   }, [courseSlug]);
 
-  console.log("dataCourseDetails", dataCourseDetails);
   const { teams } = dataCourseDetails || {};
 
   const teacherInfo = teams?.find((item: any) =>

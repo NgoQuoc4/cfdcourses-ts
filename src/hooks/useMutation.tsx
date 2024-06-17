@@ -7,7 +7,10 @@ const useMutation = (promise: any) => {
 
   const execution = async (
     payload: any,
-    options: { onSuccess: any; onFailure: any }
+    options: {
+      onSuccess: (payload: any) => void;
+      onFailure: (payload: any) => void;
+    }
   ) => {
     const { onSuccess, onFailure } = options || {};
     setLoading(true);

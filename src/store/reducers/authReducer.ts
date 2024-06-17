@@ -12,6 +12,10 @@ const initialState = {
     getProfile: false,
   },
 };
+type login = {
+  email: string;
+  password: string;
+};
 
 export const authSlice = createSlice({
   initialState,
@@ -102,7 +106,7 @@ export const handleRegister = createAsyncThunk(
 
 export const handleLogin = createAsyncThunk(
   "auth/handleLogin",
-  async (payload, thunkApi) => {
+  async (payload: login, thunkApi) => {
     console.log("payload", payload);
     try {
       const loginRes = await authService.login(payload);

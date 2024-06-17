@@ -8,4 +8,5 @@ export const MESSAGE = {
   required: "Please enter your information",
   email: "Please enter email with format abc@gmail.com",
   password: "Please enter password with format",
+  phone: "Please enter phone with format",
 };

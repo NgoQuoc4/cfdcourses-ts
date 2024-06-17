@@ -20,7 +20,7 @@ const Accordion = ({
           const { id, title, content } = item || {};
           return (
             <div
-              key={id + index}
+              key={id + index || index}
               className={`accordion__content ${
                 activeIndex === index ? "active" : ""
               } `}
@@ -37,9 +37,10 @@ const Accordion = ({
               </div>
 
               {typeof content === "object" ? (
-                content?.map((item: any) => {
+                content?.map((item: any, index: string) => {
                   return (
                     <div
+                      key={index}
                       className="accordion__content-text"
                       style={{
                         padding: "15px",
