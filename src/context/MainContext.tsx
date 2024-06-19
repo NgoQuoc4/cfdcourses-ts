@@ -11,7 +11,6 @@ const MainContext = createContext({});
 
 const MainContextProvider = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation(); //get URL of page
-
   const [isShowNavbar, setIsShowNavbar] = useState(false);
   //scroll to top
   useEffect(() => {

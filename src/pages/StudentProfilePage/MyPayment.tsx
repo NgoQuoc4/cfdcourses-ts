@@ -1,18 +1,32 @@
+import useQuery from "../../hooks/useQuery";
+import { orderService } from "../../services/orderService";
+import { formatCurrentcy, formatDate } from "../../utils/format";
+
 const MyPayment = () => {
+  const {
+    data: myPaymentData,
+    loading: myPaymentLoading,
+  }: { data: any; loading: boolean } = useQuery(
+    orderService.getPaymentHistories
+  );
+  const myPayment = myPaymentData?.orders || {};
   return (
     <div className="tab__content-item" style={{ display: "block" }}>
-      <div className="itemhistory">
-        <div className="name">Frontend Newbie</div>
-        <div className="payment">Chuyển khoản</div>
-        <div className="date">05/01/2022</div>
-        <div className="money">4.500.000 VND</div>
-      </div>
-      <div className="itemhistory">
-        <div className="name">Web Responsive</div>
-        <div className="payment">Tiền mặt</div>
-        <div className="date">14/07/2022</div>
-        <div className="money">4.900.000 VND</div>
-      </div>
+      {myPayment?.length > 0 &&
+        myPayment?.map((payment: any) => {
+          const { id, paymentMethod, createdAt, course } = payment;
+          console.log("payment", payment);
+          return (
+            <div key={id} className="itemhistory">
+              <div className="name">{course?.name || ""}</div>
+              <div className="payment">{paymentMethod || ""}</div>
+              <div className="date">{formatDate(createdAt) || ""}</div>
+              <div className="money">
+                {formatCurrentcy(course?.price) + "VND"}
+              </div>
+            </div>
+          );
+        })}
     </div>
   );
 };

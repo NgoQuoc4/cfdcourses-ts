@@ -1,8 +1,20 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import PATHS from "../../constants/paths";
+import { useSelector } from "react-redux";
 
 const StudentProfilePage = () => {
+  const { profile } = useSelector((state: any) => state.auth);
+  const {
+    profileImage,
+    firstName,
+    lastName,
+    introduce,
+    email,
+    phone,
+    website,
+    facebookURL,
+  } = profile || {};
+
   return (
     <main className="mainwrapper profilepage">
       <div className="container">
@@ -12,44 +24,48 @@ const StudentProfilePage = () => {
               <div className="useravatar">
                 <div className="avatar">
                   <div className="img">
-                    <img src="img/avatar_nghia.jpg" alt="avatar" />
+                    <img
+                      src={profileImage || "/img/avatar_nghia.jpg"}
+                      alt="avatar"
+                    />
                   </div>
+                  {/* <form action="/action_page.php">
+                    <label htmlFor="img">Select image:</label>
+                    <input type="file" id="img" name="img" accept="image/*" />
+                    <input type="submit" />
+                  </form> */}
                 </div>
-                <h3 className="title --t3">Trần Nghĩa</h3>
+                <h3 className="title --t3">
+                  {firstName + lastName || firstName || "--"}
+                </h3>
               </div>
             </div>
             <div className="sidebar__content">
               <h4>Giới thiệu</h4>
-              <p className="description">
-                Cheerful, cafeful,friendly. I like listening to music, traveling
-                and coding, listening to music, traveling and coding.
-              </p>
+              <p className="description">{introduce || "--"}</p>
               <ul>
                 <li>
-                  <img src="img/icon-mail-outline.svg" alt="icon" />
-                  <span>trannghia2018@gmail.com</span>
+                  <img src="/img/icon-mail-outline.svg" alt="icon" />
+                  <span>{email || "--"}</span>
                 </li>
                 <li>
-                  <img src="img/icon-phone-outline.svg" alt="icon" />
-                  <span>098 9596 913</span>
+                  <img src="/img/icon-phone-outline.svg" alt="icon" />
+                  <span>{phone || "--"}</span>
                 </li>
                 <li>
-                  <img src="img/icon-link.svg" alt="icon" />
-                  <a href="#" target="_blank">
-                    https://nghiatran.info
-                  </a>
+                  <img src="/img/icon-link.svg" alt="icon" />
+                  <Link to={website} target="_blank">
+                    {website || "--"}
+                  </Link>
                 </li>
               </ul>
               <div className="social">
-                <a href="#">
-                  <img src="img/icon-facebook-dark.svg" alt="" />
-                </a>
-                <a href="#">
-                  <img src="img/icon-linkedin-dark.svg" alt="" />
-                </a>
-                <a href="#">
-                  <img src="img/icon-youtube-dark.svg" alt="" />
-                </a>
+                <Link
+                  to={facebookURL}
+                  target={facebookURL ? "_blank" : "_self"}
+                >
+                  <img src="/img/icon-fb-footer.svg" alt="" />
+                </Link>
               </div>
             </div>
           </div>

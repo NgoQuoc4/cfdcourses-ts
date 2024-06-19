@@ -6,8 +6,13 @@ import {
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { MODAL_TYPES } from "../../constants/general";
+import tokenMethod from "../../utils/token";
+
+import PATHS from "../../constants/paths";
+import { useNavigate } from "react-router-dom";
 
 const AuthModal = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { showModal } = useSelector((state) => state.auth);
 
@@ -15,13 +20,16 @@ const AuthModal = () => {
     e?.stopPropagation();
     e?.preventDefault();
     dispatch(handleCloseModal());
+    if (!tokenMethod.get()) {
+      return navigate(PATHS.HOME);
+    }
   };
 
   return (
     <div className={`modal modallogin ${!showModal ? "" : "open"}`}>
       <div className="modal__wrapper">
         <div className="modal__wrapper-close" onClick={_onCloseModal}>
-          <img src="img/close_icon.svg" alt="CFD Register" />
+          <img src="/img/close_icon.svg" alt="CFD Register" />
         </div>
         {showModal === MODAL_TYPES.login && <LoginForm />}
         {showModal === MODAL_TYPES.register && <RegisterForm />}

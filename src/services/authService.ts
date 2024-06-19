@@ -11,7 +11,7 @@ export const authService = {
     return axiosInstance.get(`/customer/profiles`, {});
   },
   updateProfile(payload = {}) {
-    return axiosInstance.put(`/customer/profile`, payload, {
+    return axiosInstance.put(`/customer/profiles`, payload, {
       headers: { "Content-Type": "multipart/form-data" },
     });
   },

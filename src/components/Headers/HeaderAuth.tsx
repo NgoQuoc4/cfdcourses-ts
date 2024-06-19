@@ -16,7 +16,7 @@ const HeaderAuth = () => {
   const { profile } = useSelector((state) => state.auth);
   // const { dropdown, handleShowDropdown, handleCloseDropdown } =
   //   useAuthContext();
-
+  console.log("profile", profile);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   useEffect(() => {
     dispatch(handleGetProfile() as any);
